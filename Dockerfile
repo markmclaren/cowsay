@@ -1,5 +1,8 @@
-FROM alpine
-RUN apk add --no-cache perl
-COPY cowsay /usr/local/bin/cowsay
-COPY default.cow /usr/local/share/cows/default.cow
-ENTRYPOINT ["/usr/local/bin/cowsay"]
+FROM ubuntu:14.04
+# install cowsay
+RUN apt-get update && apt-get install -y cowsay --no-install-recommends && rm -rf /var/lib/apt/lists/* 
+
+# "cowsay" installs to /usr/games
+ENV PATH $PATH:/usr/games
+
+CMD ["cowsay"]
